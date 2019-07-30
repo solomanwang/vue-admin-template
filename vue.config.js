@@ -10,7 +10,7 @@ const name = defaultSettings.title || 'vue Admin Template' // page title
 // If your port is set to 80,
 // use administrator privileges to execute the command line.
 // For example, Mac: sudo npm run
-const port = 9528 // dev port
+const port = 9001 // dev port
 
 // All configuration item explanations can be find in https://cli.vuejs.org/config/
 module.exports = {
@@ -33,18 +33,14 @@ module.exports = {
       warnings: false,
       errors: true
     },
-    proxy: {
-      // change xxx-api/login => mock/login
-      // detail: https://cli.vuejs.org/config/#devserver-proxy
-      [process.env.VUE_APP_BASE_API]: {
-        target: `http://127.0.0.1:${port}/mock`,
-        changeOrigin: true,
-        pathRewrite: {
-          ['^' + process.env.VUE_APP_BASE_API]: ''
-        }
+    proxy: {  
+      '/api': {
+        // target: process.env.VUE_APP_BASE_API,
+        target: 'http://api.utts.com/api',
+        changeOrigin: true, // 是否开启跨域
+        pathRewrite: {'^/api' : '/api'} // 在请求的时候 凡是/api开头的地址都可以跨域
       }
     },
-    after: require('./mock/mock-server.js')
   },
   configureWebpack: {
     // provide the app's title in webpack's name field, so that
