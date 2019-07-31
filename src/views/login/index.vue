@@ -6,15 +6,15 @@
         <h3 class="title">UTTS 登录页面</h3>
       </div>
 
-      <el-form-item prop="username">
+      <el-form-item prop="name">
         <span class="svg-container">
           <svg-icon icon-class="user" />
         </span>
         <el-input
-          ref="username"
-          v-model="loginForm.username"
+          ref="name"
+          v-model="loginForm.name"
           placeholder="用户名"
-          name="username"
+          name="name"
           type="text"
           tabindex="1"
           auto-complete="on"
@@ -53,32 +53,33 @@
 </template>
 
 <script>
-import { validUsername } from '@/utils/validate'
+// import { validUsername } from '@/utils/validate'
 
 export default {
   name: 'Login',
   data() {
-    const validateUsername = (rule, value, callback) => {
-      if (!validUsername(value)) {
-        callback(new Error('Please enter the correct user name'))
-      } else {
-        callback()
-      }
-    }
+    // const validateUsername = (rule, value, callback) => {
+    //   console.log('校验的值为 name= ',value);
+    //   if (!validUsername(value)) {
+    //     callback(new Error('用户名错误'))
+    //   } else {
+    //     callback()
+    //   }
+    // }
     const validatePassword = (rule, value, callback) => {
       if (value.length < 3) {
-        callback(new Error('The password can not be less than 6 digits'))
+        callback(new Error('密码不能小于3位'))
       } else {
         callback()
       }
     }
     return {
       loginForm: {
-        username: 'admin',
-        password: '111111'
+        name: 'root',
+        password: 'root'
       },
       loginRules: {
-        username: [{ required: true, trigger: 'blur', validator: validateUsername }],
+        name: [{ required: true, message: '请输入活动名称', trigger: 'blur' }],
         password: [{ required: true, trigger: 'blur', validator: validatePassword }]
       },
       loading: false,
@@ -110,9 +111,12 @@ export default {
         if (valid) {
           this.loading = true
           this.$store.dispatch('user/login', this.loginForm).then(() => {
+            console.log("success");
+            
             this.$router.push({ path: this.redirect || '/' })
             this.loading = false
           }).catch(() => {
+            console.log("error");
             this.loading = false
           })
         } else {

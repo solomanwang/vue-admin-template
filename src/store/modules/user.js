@@ -1,4 +1,4 @@
-import { login, logout, getInfo, animalList } from '@/api/user'
+import { login, logout, getInfo } from '@/api/user'
 import { getToken, setToken, removeToken } from '@/utils/auth'
 import { resetRouter } from '@/router'
 
@@ -23,14 +23,15 @@ const mutations = {
 const actions = {
   // user login
   login({ commit }, userInfo) {
-    const { username, password } = userInfo
+    const { name, password } = userInfo
     return new Promise((resolve, reject) => {
-      login({ username: username.trim(), password: password }).then(response => {
+      login({ name: name.trim(), password: password }).then(response => {
         const { data } = response
-        commit('SET_TOKEN', data.token)
-        setToken(data.token)
+        // commit('SET_TOKEN', data)
+        // setToken(data)
         resolve()
       }).catch(error => {
+        console.log("出现错误 = ", error);
         reject(error)
       })
     })
@@ -65,15 +66,6 @@ const actions = {
         removeToken()
         resetRouter()
         resolve()
-      }).catch(error => {
-        reject(error)
-      })
-    })
-  },
-  animalList({ commit }, data) {
-    return new Promise((resolve, reject) => {
-      animalList(data).then(response => {
-        resolve(response)
       }).catch(error => {
         reject(error)
       })
