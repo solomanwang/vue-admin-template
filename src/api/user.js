@@ -10,7 +10,7 @@ export function login(data) {
 
 export function getInfo(token) {
   return request({
-    url: '/user/info',
+    url: '/auth/info',
     method: 'get',
     params: { token }
   })
@@ -18,15 +18,17 @@ export function getInfo(token) {
 
 export function logout() {
   return request({
-    url: '/user/logout',
+    url: '/auth/logout',
     method: 'post'
   })
 }
 
-export function animalList(data) {
+//  查询所有用户信息，可根据 条件筛选查询
+export function userList(params){
   return request({
-    url: '/animal/list',
-    method: 'get',
-    params: data
+    url: '/user/list',
+    method: 'post',
+    params
   })
 }
+

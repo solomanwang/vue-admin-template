@@ -42,11 +42,11 @@
       </el-form-item>
 
       <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">登录</el-button>
-
+<!-- 
       <div class="tips">
         <span style="margin-right:20px;">username: admin</span>
         <span> password: any</span>
-      </div>
+      </div> -->
 
     </el-form>
   </div>
@@ -75,11 +75,11 @@ export default {
     }
     return {
       loginForm: {
-        name: 'root',
-        password: 'root'
+        name: '',
+        password: ''
       },
       loginRules: {
-        name: [{ required: true, message: '请输入活动名称', trigger: 'blur' }],
+        name: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
         password: [{ required: true, trigger: 'blur', validator: validatePassword }]
       },
       loading: false,
@@ -90,6 +90,7 @@ export default {
   watch: {
     $route: {
       handler: function(route) {
+        console.log("route = ",route);
         this.redirect = route.query && route.query.redirect
       },
       immediate: true
@@ -111,12 +112,9 @@ export default {
         if (valid) {
           this.loading = true
           this.$store.dispatch('user/login', this.loginForm).then(() => {
-            console.log("success");
-            
             this.$router.push({ path: this.redirect || '/' })
             this.loading = false
           }).catch(() => {
-            console.log("error");
             this.loading = false
           })
         } else {

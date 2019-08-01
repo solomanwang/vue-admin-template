@@ -51,7 +51,7 @@ export const constantRoutes = [
       path: 'dashboard',
       name: 'Dashboard',
       component: () => import('@/views/dashboard/index'),
-      meta: { title: 'Dashboard', icon: 'dashboard' }
+      meta: { title: '首页', icon: 'dashboard' }
     }]
   },
 
@@ -60,7 +60,7 @@ export const constantRoutes = [
     component: Layout,
     redirect: '/example/table',
     name: 'Example',
-    meta: { title: 'Example', icon: 'example' },
+    meta: { title: '用户管理', icon: 'example' },
     children: [
       {
         path: 'table',
@@ -73,6 +73,34 @@ export const constantRoutes = [
         name: 'Tree',
         component: () => import('@/views/tree/index'),
         meta: { title: 'Tree', icon: 'tree' }
+      }
+    ]
+  },
+  {
+    path: '/users',
+    component: Layout,
+    name: '用户',
+    meta: { title: '用户', icon: 'user' },
+    children: [
+      {
+        path: 'index',
+        name: 'User',
+        component: () => import('@/views/users/index'),
+        meta: { title: 'user', icon: 'user' }
+      }
+    ]
+  },
+  {
+    path: '/report',
+    name: '报告',
+    component: Layout,
+    meta: { title: '报告', icon: 'clipboard'},
+    children: [
+      {
+        path: "index",
+        name: 'Report',
+        component: () => import('@/views/report/index'),
+        meta: { title: 'Report', icon: 'clipboard'}
       }
     ]
   },
@@ -148,23 +176,23 @@ export const constantRoutes = [
     ]
   },
 
-  {
-    path: 'external-link',
-    component: Layout,
-    children: [
-      {
-        path: 'https://panjiachen.github.io/vue-element-admin-site/#/',
-        meta: { title: 'External Link', icon: 'link' }
-      }
-    ]
-  },
+  // {  添加外链
+  //   path: 'external-link',
+  //   component: Layout,
+  //   children: [
+  //     {
+  //       path: 'https://panjiachen.github.io/vue-element-admin-site/#/',
+  //       meta: { title: 'External Link', icon: 'link' }
+  //     }
+  //   ]
+  // },
 
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }
 ]
 
 const createRouter = () => new Router({
-  // mode: 'history', // require service support
+  mode: 'history', // require service support
   scrollBehavior: () => ({ y: 0 }),
   routes: constantRoutes
 })

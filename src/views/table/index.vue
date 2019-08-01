@@ -60,11 +60,11 @@ export default {
   data() {
     return {
       list: null,
-      listLoading: true
+      listLoading: false
     }
   },
   created() {
-    this.fetchData()
+    // this.fetchData()
   },
   methods: {
     fetchData() {
