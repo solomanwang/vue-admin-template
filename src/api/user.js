@@ -26,7 +26,7 @@ export function logout() {
 //  查询所有用户信息，可根据 条件筛选查询
 export function userList(params){
   return request({
-    url: '/user/list',
+    url: '/user/getAll',
     method: 'post',
     params
   })
