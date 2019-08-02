@@ -8,7 +8,7 @@
       <el-dropdown class="avatar-container" trigger="click">
         <div class="avatar-wrapper">
           <img src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png" class="user-avatar">
-          <el-avatar icon="el-icon-user-solid"></el-avatar>
+          <!-- <el-avatar icon="el-icon-user-solid"></el-avatar> -->
           <!-- <el-avatar class="user-avatar"> user </el-avatar> -->
           <span>wang</span>
           <i class="el-icon-caret-bottom" />

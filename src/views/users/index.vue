@@ -5,7 +5,7 @@
         v-model="listQuery.key"
         style="width: 140px"
         class="filter-item"
-        @change="handleFilter"
+        @change="handleKeyWord"
       >
         <el-option
           v-for="item in sortOptions"
@@ -26,45 +26,47 @@
         type="primary"
         icon="el-icon-search"
         @click="handleFilter"
-      >Search</el-button>
+      >搜索</el-button>
       <el-button
         :loading="downloadLoading"
         class="filter-item"
         type="primary"
         icon="el-icon-download"
         @click="handleDownload"
-      >Export</el-button>
+      >导出</el-button>
     </div>
 
     <el-table
       :key="tableKey"
       v-loading="listLoading"
       :data="list"
+      stripe
+      height
       border
       fit
       highlight-current-row
       style="width: 100%;"
       @sort-change="sortChange"
     >
-      <el-table-column
-        label="ID"
-        prop="userId"
-        sortable="custom"
-        align="center"
-        width="80"
-        :class-name="getSortClass('id')"
-      >
+      <el-table-column label="Date" prop="createTime"></el-table-column>
+      <!-- <el-table-column label="头像" align="center">
         <template slot-scope="scope">
-          <span>{{ scope.row.userId }}</span>
+          <img src= {{ scope.row.headImgUrl }} >
         </template>
-      </el-table-column>
-      <el-table-column label="Date" width="150px" align="center">
+    </el-table-column> -->
+    <!-- <el-table-column label="Author" width="110px" align="center">
+        <template slot-scope="scope">
+          <span>{{ scope.row.author }}</span>
+        </template>
+      </el-table-column> -->
+      <!-- <el-table-column label="Date" width="150px" align="center">
         <template slot-scope="scope">
           <span>{{ scope.row.createTime | parseTime('{y}-{m}-{d} {h}:{i}') }}</span>
         </template>
-      </el-table-column>
-      <el-table-column label="Date" prop="createTime"></el-table-column>
+      </el-table-column> -->
       <el-table-column label="昵称" prop="nickname"></el-table-column>
+      <el-table-column label="性别" prop="sex"></el-table-column>
+      <el-table-column label="电话" prop="phone"></el-table-column>
       <el-table-column
         label="Actions"
         align="center"
@@ -274,7 +276,6 @@ export default {
       this.listLoading = true;
       userList(this.listQuery).then(response => {
         this.list = response.data.items;
-        console.log("表格数据 = ", this.list);
         this.total = response.data.total;
         // Just to simulate the time of the request
         setTimeout(() => {
@@ -285,6 +286,9 @@ export default {
     handleFilter() {
       this.listQuery.page = 1;
       this.getList();
+    },
+    handleKeyWord(){
+      console.log('选择的是：',this.listQuery.key);
     },
     handleModifyStatus(row, status) {
       this.$message({
